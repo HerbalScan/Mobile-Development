@@ -1,25 +1,28 @@
 package com.example.herbalscanapplication
 
+import android.os.Message
+import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.POST
 import retrofit2.http.Multipart
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-data class FileUploadResponse(
-    val prediction: String
+data class Informasi(
+    @field:SerializedName("Informasi") val informasi : String
 )
 
 interface ApiService {
     @Multipart
-    @POST("predict/image")
+    @POST("/predict/image")
     fun uploadImage(
         @Part file: MultipartBody.Part
-    ): Call<FileUploadResponse>
+    ): Call<Informasi>
 }
 
 class ApiConfig {

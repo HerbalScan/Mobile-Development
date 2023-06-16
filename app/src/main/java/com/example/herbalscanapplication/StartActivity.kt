@@ -15,13 +15,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.herbalscanapplication.databinding.ActivityStartBinding
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -92,28 +87,27 @@ class StartActivity : AppCompatActivity() {
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
 
+
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "photo",
+                "file",
                 file.name,
                 requestImageFile
             )
 
-            val apiService = ApiConfig().getApiService()
-            val uploadImageRequest= apiService.uploadImage(imageMultipart)
-            uploadImageRequest.enqueue(object : Callback<FileUploadResponse> {
+            val apiService = ApiConfig().getApiService().uploadImage(imageMultipart)
+            apiService.enqueue(object : Callback<Informasi> {
                 override fun onResponse(
-                    call : Call<FileUploadResponse>, response: Response<FileUploadResponse>
+                    call : Call<Informasi>, response: Response<Informasi>
                 ) {
                     if (response.isSuccessful){
                         val responseBody = response.body()
-                        val resultText = responseBody?.prediction ?: "No Response"
-                        startResultActicity(resultText)
+                        startResultActicity(responseBody.toString())
                     } else {
-                        Toast.makeText(this@StartActivity, "berhasil memuat api tapi gagal mendapatkan respon", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@StartActivity, "ERROR", Toast.LENGTH_SHORT).show()
                     }
                 }
-                override fun onFailure(call: Call<FileUploadResponse>, t: Throwable) {
+                override fun onFailure(call: Call<Informasi>, t: Throwable) {
                     Toast.makeText(this@StartActivity, "gagal memanggil API", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -124,7 +118,7 @@ class StartActivity : AppCompatActivity() {
 
     private fun startResultActicity(message: String) {
         val intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra("response", message)
+        intent.putExtra("message", message)
         startActivity(intent)
     }
 
