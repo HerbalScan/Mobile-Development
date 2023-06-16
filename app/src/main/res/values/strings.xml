@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">HerbalScan Application</string>
+    <string name="login_title">Login untuk melanjutkan ke aplikasi</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="login_email">Masukkan email atau username</string>
+    <string name="login_password">Masukkan password</string>
+    <string name="login_forgot_pw">Lupa Password?</string>
+    <string name="login_havent_acc">
+        Belum punya akun? <font color="#00C9B8"><b>Register</b></font>
+    </string>
+    <string name="register_have_acc">
+        Punya akun? <font color="#00C9B8"><b>Login</b></font>
+    </string>
+    <string name="register_tit">Buat Akun Baru</string>
+    <string name="register_nama">Nama Lengkap</string>
+    <string name="register_email">Email</string>
+    <string name="register_username">Username</string>
+    <string name="register_password">Password</string>
+    <string name="register_konfirmasi_password">Konfirmasi Password</string>
+    <string name="start_upload">UPLOAD</string>
+    <string name="start_gallery">GALLERY</string>
+    <string name="start_camera">BUKA KAMERA</string>
+
+</resources>
